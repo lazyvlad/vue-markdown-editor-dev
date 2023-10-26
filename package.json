@@ -1,6 +1,6 @@
 {
   "name": "@barkoder/vue-codemarkdown",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A fork from a popular markdown package that works with vue v-md-",
   "main": "lib/base-editor.js",
   "keywords": [
