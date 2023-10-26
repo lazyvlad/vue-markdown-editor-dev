@@ -4,12 +4,10 @@ export default function (Component) {
   return {
     created() {
 
-      console.log(Component)
       const { commands } = Component;
 
       this.commands = {};
 
-      console.log(commands)
 
       Object.keys(commands).forEach((name) => {
         this.registerCommand(name, commands[name]);

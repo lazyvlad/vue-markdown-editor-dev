@@ -1,7 +1,7 @@
 {
-  "name": "@lazyvlad/v-md-editor-bark",
-  "version": "1.0.0.0",
-  "description": "A markdown editor built on Vue based on v-md-editor",
+  "name": "@barkoder/vue-codemarkdown",
+  "version": "1.0.2",
+  "description": "A fork from a popular markdown package that works with vue v-md-",
   "main": "lib/base-editor.js",
   "keywords": [
     "javascript",

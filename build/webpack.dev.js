@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(getBaseConfig(), {
   entry: {
-    dev: './dev/main.js',
+    dev: './dev/main.js'
   },
   devServer: {
     open: true,

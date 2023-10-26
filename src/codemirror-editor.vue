@@ -92,10 +92,10 @@ const component = {
     },
   },
   mounted() {
+
     if (!this.Codemirror) {
-      return console.error(
-        '1.5.0与2.1.0版本之后Codemirror将由用户自己配置，请配置Codemirror，如何配置请参考相关文档'
-      );
+
+      return console.error(`Missing CodeMirror`);
     }
 
     this.codemirrorInstance = new this.Codemirror(this.$refs.codemirrorEditor, {
@@ -144,6 +144,8 @@ const component = {
   beforeUnmount() {
     const element = this.codemirrorInstance.doc.cm.getWrapperElement();
 
+    console.log(`maybe we unmount for whatever reason?`);
+
     element?.remove?.();
   },
   methods: {
@@ -176,6 +178,7 @@ const component = {
     },
     // Must implement
     editorRegisterHotkeys(...arg) {
+
       this.hotkeysManager.registerHotkeys(...arg);
     },
     // Must implement

@@ -78,7 +78,6 @@
         >
           <slot name="preview" />
         </div>
-        <slot />
       </div>
     </div>
   </div>

@@ -77,6 +77,7 @@ import createEditor from './create-editor';
 
 import { inBrowser } from '@/utils/util';
 
+
 const component = {
   components: {
     [TextareaEditor.name]: TextareaEditor,
@@ -93,6 +94,7 @@ const component = {
 
         if (this.height) {
           const editorWrapper = this.$el.querySelector('.v-md-editor__editor-wrapper');
+
           this.textEditorMinHeight = window.getComputedStyle(editorWrapper).height;
         } else {
           this.textEditorMinHeight = '';

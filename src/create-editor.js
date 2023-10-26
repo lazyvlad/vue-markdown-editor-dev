@@ -34,7 +34,6 @@ lang.add({
 export default function createEditor(component) {
 
   
-  console.log(component)
   commandWrapper(component);
   toolbarWrapper(component);
 
