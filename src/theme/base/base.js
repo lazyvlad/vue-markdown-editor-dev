@@ -7,12 +7,15 @@ import markdownItLink from '@/utils/markdown-it-link';
 import { LINE_MARKUP, HEADING_MARKUP, ANCHOR_MARKUP } from '@/utils/constants/markup';
 import slugify from '@vuepress/shared-utils/lib/slugify';
 
+
 import markdownIt from '@/utils/markdown-it';
+import markDownItSub from 'markdown-it-sub';
 
 export default function createBaseTheme({ toc, link, attrs } = {}) {
   const mdIt = markdownIt();
 
   mdIt
+    .use(markDownItSub)
     .use(markdownItLink, {
       externalAttrs: {
         target: '_blank',
@@ -28,7 +31,7 @@ export default function createBaseTheme({ toc, link, attrs } = {}) {
       leftDelimiter: '{{{',
       rightDelimiter: '}}}',
       ...attrs,
-      allowedAttributes: ['width', 'height', ...attrs?.allowedAttributes],
+      allowedAttributes: ['class','width', 'height', ...attrs?.allowedAttributes],
     })
     .use(markdownItHeadingTag, {
       getMarks(title, level, unique) {

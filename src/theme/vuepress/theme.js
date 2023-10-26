@@ -16,6 +16,7 @@ export default function createVuepressTheme(config) {
   return {
     previewClass: 'vuepress-markdown-body',
     extend(callback) {
+      console.log('what happens here');
       prismTheme.extend(callback);
     },
     markdownParser: prismTheme.markdownParser,

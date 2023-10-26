@@ -2,7 +2,7 @@
   <div>
     <v-md-editor
       v-model="text"
-      height="500px"
+      height="700px"
       autofocus
       :disabled-menus="[]"
       toc-nav-position-right
@@ -36,6 +36,8 @@ export default {
     },
     handleUploadImage(e, insertImage, files) {
       console.log(files);
+
+      console.log(insertImage)
 
       insertImage({
         url: '111',

@@ -64,6 +64,7 @@ VueMarkdownEditor.use(vuepressTheme, {
     vue: 'markup',
   },
 });
+
 // Preview.use(githubTheme);
 
 VueMarkdownEditor.use(createEmojiPlugin())

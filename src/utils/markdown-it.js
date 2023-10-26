@@ -1,6 +1,8 @@
 import MarkdownIt from 'markdown-it';
 import { escapeHtml } from 'markdown-it/lib/common/utils';
 
+// const MarkdownItSub = require('markdown-it-sub')
+
 export function createHighlightRender({
   codeHighlightExtensionMap = {},
   hasLang = () => true,
@@ -30,9 +32,11 @@ export default function () {
   markdownItInstance.set({
     html: true,
     breaks: true,
-    linkify: false,
+    linkify: true,
     typographer: true,
   });
+
+  // markdownItInstance.use(markDownItSub)
 
   return markdownItInstance;
 }

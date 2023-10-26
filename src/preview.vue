@@ -80,6 +80,7 @@ const component = {
 };
 
 const vMdParser = new VMdParser();
+
 vMdParser.lang.config = reactive(vMdParser.lang.config);
 component.vMdParser = new VMdParser();
 

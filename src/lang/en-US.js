@@ -47,6 +47,10 @@ export default {
     toolbar: 'Strike',
     placeholder: 'Strike',
   },
+  subscript: {
+    toolbar: 'Subscript',
+    placeholder: 'subscript',
+  },
   quote: {
     toolbar: 'Blockquote',
     placeholder: 'Blockquote',

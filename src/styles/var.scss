@@ -15,7 +15,7 @@ $editor-font-size: 14px;
 $border-color: #ddd;
 
 // toolbar
-$toolbar-font-size: 16px;
+$toolbar-font-size: 24px;
 $toolbar-text-color: #595959;
 $toolbar-hover-background: #f5f5f5;
 $toolbar-active-background: #e8e8e8;
@@ -30,6 +30,8 @@ $tooltip-border-radius: 2px;
 $tooltip-z-index: 101;
 $tooltip-padding: 4px 6px;
 $tooltip-font-size: 12px;
+$tooltip-font-family: menlo, 'Ubuntu Mono', consolas, 'Courier New', 'Microsoft Yahei',
+'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
 
 // scrollbar
 $scrollbar-width: 6px;
