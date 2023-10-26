@@ -1,7 +1,7 @@
 {
-  "name": "@kangc/v-md-editor",
-  "version": "2.3.18-beta.0",
-  "description": "A markdown editor built on Vue",
+  "name": "@lazyvlad/v-md-editor-bark",
+  "version": "1.0.0.0",
+  "description": "A markdown editor built on Vue based on v-md-editor",
   "main": "lib/base-editor.js",
   "keywords": [
     "javascript",
