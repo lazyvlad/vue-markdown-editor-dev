@@ -647,23 +647,23 @@
         async uploadFiles(){
 
 
-            let uploaded  = Promise.all(await this.files.map( async (file) => await this.uploadFile(file) )) 
+            let uploaded  = Promise.all(await this.files.map( async (file,index) => await this.uploadFile(file,index) )) 
 
             uploaded.then((resolution)=>{
 
                 this.upload_enabled = true
                 this.added_files = [...this.added_files,...this.files]
                 //clear the files list to be able to upload the same image
-                // this.files = [];
+                this.files = [];
                 //clear the upload status
-                // this.upload_status = {}
+                this.upload_status = {}
                 this.key++;
             })
 
             
             
         },          
-        async uploadFile(file){
+        async uploadFile(file,index){
 
 
             this.upload_status[file.name] = {
@@ -709,6 +709,9 @@
 
                 return item;
             });
+
+
+            this.files.splice(index,1);
 
             this.files_data.sliced = [...data,...this.files_data.sliced];
             this.files_data.count = this.files_data.count + response.data.length;
