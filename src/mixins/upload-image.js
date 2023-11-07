@@ -18,15 +18,22 @@ export default {
   emits: ['upload-image'],
   computed: {
     uploadImgConfig() {
+
       return { ...defaultConfig, ...this.uploadImageConfig };
     },
     hasUploadImage() {
+
+      console.log(!this.disabledMenus.includes(`${imageToolbar.name}/upload-image`))
       return !this.disabledMenus.includes(`${imageToolbar.name}/upload-image`);
     },
   },
   methods: {
     handleDrop(e) {
+
       const files = filesFilter(e.dataTransfer.files, this.uploadImgConfig);
+
+
+      console.log(files)
 
       this.emitUploadImage(e, files);
     },
@@ -36,6 +43,9 @@ export default {
       if (!clipboardData) return;
 
       const files = filesFilter(getFilesFromClipboardData(clipboardData), this.uploadImgConfig);
+
+
+      console.log(files)
 
       this.emitUploadImage(e, files);
     },
@@ -47,6 +57,7 @@ export default {
           'upload-image',
           e,
           (imageConfig) => {
+            console.log('tuka tava ne se ni desva');
             this.execCommand(image, imageConfig);
           },
           files

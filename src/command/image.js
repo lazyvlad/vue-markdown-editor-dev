@@ -2,7 +2,7 @@ export { image as name } from '@/utils/constants/command.js';
 
 export default function (editor, { url, desc, width, height } = {}) {
   editor.insert(() => {
-    const urlPlaceholder = 'http://';
+    const urlPlaceholder = 'https://';
     const descPlaceholder = 'Description';
     let selected = urlPlaceholder;
     let text = `![${desc || descPlaceholder}](${url || urlPlaceholder})`;

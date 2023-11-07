@@ -101,6 +101,9 @@ export default {
     enabled: 'Enable sync scroll ',
     disabled: 'Disable sync scroll',
   },
+  monolithUpload:{
+    toolbar : 'Upload via our system'
+  },
   fullscreen: {
     enabled: 'Full screen(Press ESC to exit)',
     disabled: 'Exit Full Screen',

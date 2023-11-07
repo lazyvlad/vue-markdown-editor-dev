@@ -13,6 +13,7 @@ export function filesFilter(files, config) {
       .map((type) => type.trim())
       .filter((type) => type)
       .some((acceptedType) => {
+
         if (/\..+$/.test(acceptedType)) {
           return extension === acceptedType;
         }

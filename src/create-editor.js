@@ -8,6 +8,8 @@ import { toolbarWrapper } from '@/utils/toolbar';
 // mixins
 import commonMixin from '@/mixins/common';
 import vModelMixin from '@/mixins/v-model';
+
+import monolithUploadMixin from '@/mixins/monolith-upload';
 import fullscreenMixin from '@/mixins/fullscreen';
 import uploadImageMixin from '@/mixins/upload-image';
 import syncScrollMixin from '@/mixins/sync-scroll';
@@ -48,6 +50,7 @@ export default function createEditor(component) {
   component.mixins = [
     commonMixin,
     vModelMixin,
+    monolithUploadMixin,    
     toolbarMixin(component),
     commandMixin(component),
     hotkeysMixin(component),
@@ -59,4 +62,7 @@ export default function createEditor(component) {
     listMixin,
     langMixin,
   ];
+
+  
+
 }

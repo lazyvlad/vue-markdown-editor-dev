@@ -23,10 +23,18 @@ export default {
       action(editor) {
         editor.uploadConfig = editor.uploadImgConfig;
         editor.$nextTick(async () => {
-          const event = await editor.$refs.uploadFile.upload();
-          const files = filesFilter(event.target.files, editor.uploadImgConfig);
 
-          editor.emitUploadImage(event, files);
+          try{
+            const event = await editor.$refs.uploadFile.upload();
+            const files = filesFilter(event.target.files, editor.uploadImgConfig);
+            editor.emitUploadImage(event, files);            
+
+          }
+          catch(e){
+            console.log(e)
+          }
+
+
         });
       },
     },

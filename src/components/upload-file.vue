@@ -1,7 +1,7 @@
 <template>
   <input
     type="file"
-    style="display: none"
+    style="display: block"
     :key="key"
     :accept="uploadConfig.accept"
     :multiple="uploadConfig.multiple"
@@ -27,13 +27,12 @@ export default {
       const event = await this.chooseFile();
 
       return event;
-    },
+    },   
     chooseFile() {
       return new Promise((resolve) => {
         this.handleUpload = (e) => {
           resolve(e);
 
-          // 解决上传同一文件不触发change事件的问题
           this.key++;
         };
 

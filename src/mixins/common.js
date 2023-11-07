@@ -15,6 +15,7 @@ export default {
     [Container.name]: Container,
     [Scrollbar.name]: Scrollbar,
     [TocNav.name]: TocNav,
+    // [MonolithUpload.name]: MonolithUpload,
   },
   provide() {
     return {

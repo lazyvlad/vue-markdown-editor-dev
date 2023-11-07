@@ -54,12 +54,25 @@
         />
       </scrollbar>
     </template>
-    <v-md-upload-file
-      v-if="hasUploadImage"
-      :upload-config="uploadConfig"
-      ref="uploadFile"
-    />
+
+    <template #lazyvlad>
+      <!-- <div class="easy-class" ref="someShit">Upload Files</div>
+      <v-md-upload-file
+        :upload-config="uploadConfig"
+        ref="uploadFile"
+      /> -->
+      <v-md-monolith-upload
+       :upload-config="monolithImageConfig"
+       :upload-url="uploadUrl"
+       :settings="monolithSettings"
+       @files-dropped="handleFilesDropped"
+       @refresh-server-data="handleRefreshServerData"
+       ref="monolithUpload"      
+      />  
+    </template>
   </v-md-container>
+
+
 </template>
 
 <script>
@@ -74,7 +87,10 @@ const component = {
       type: Boolean,
       default: true,
     },
+    uploadUrl : Object,
+    monolithSettings:Object,
   },
+  emits : ['custom-upload-hook','custom-server-refresh-data-hook'],
   watch: {
     modelValue() {
       if (this.modelValue !== this.text) {
@@ -144,14 +160,19 @@ const component = {
   beforeUnmount() {
     const element = this.codemirrorInstance.doc.cm.getWrapperElement();
 
-    console.log(`maybe we unmount for whatever reason?`);
-
     element?.remove?.();
   },
   methods: {
+    handleFilesDropped(files){
+
+      this.$emit('custom-upload-hook',files)
+    },
+    handleRefreshServerData(){
+      this.$emit('custom-server-refresh-data-hook')
+    },
     handleContainerResize() {
       if (!this.Codemirror) return;
-      // 容器大小变化的时候刷新 codemirror 解决滚动条的显示问题
+
       this.codemirrorInstance.refresh();
     },
     getValue() {
@@ -286,6 +307,7 @@ const component = {
 };
 
 createEditor(component);
+
 
 export default component;
 </script>

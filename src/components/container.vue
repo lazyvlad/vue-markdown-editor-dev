@@ -78,6 +78,9 @@
         >
           <slot name="preview" />
         </div>
+        <div>
+          <slot name="lazyvlad" />
+        </div>
       </div>
     </div>
   </div>

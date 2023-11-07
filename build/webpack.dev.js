@@ -7,16 +7,19 @@ module.exports = merge(getBaseConfig(), {
   entry: {
     dev: './dev/main.js'
   },
+  devtool: "source-map",  
+  watch: true,
   devServer: {
     open: true,
     progress: true,
-    host: '127.0.0.1',
+    host: 'localhost.afk.mk',
+    port: 8083,
     stats: 'errors-only',
     disableHostCheck: true,
   },
   output: {
-    path: path.join(__dirname, '../dev/dist'),
-    publicPath: '/',
+    path: path.join(__dirname, '../../blog-list'),
+    filename: "[name].js",
     chunkFilename: 'async_[name].js',
   },
   optimization: {

@@ -6,7 +6,7 @@ export default function (Component) {
       leftToolbar: {
         type: String,
         default:
-          'undo redo clear | h bold italic strikethrough subscript quote | ul ol table hr | link image code | save',
+          'undo redo clear | h bold italic strikethrough subscript quote | ul ol table hr | link image code | save | monolith-upload |',
       },
       rightToolbar: {
         type: String,
@@ -44,6 +44,7 @@ export default function (Component) {
       },
       handleToolbarItemClick(toolbar) {
         if (toolbar.action && !toolbar.menus?.length && typeof toolbar.action === 'function') {
+
           toolbar.action.call(toolbar, this, this.toolbarConfig[toolbar.name]);
         }
       },
