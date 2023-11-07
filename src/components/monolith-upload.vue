@@ -1,3 +1,95 @@
+<template>
+
+    <div class="modal-overlay" v-if="isOpen" @click.self="closeModal">
+      <div class="modal">
+            <input
+                class="monolith"
+                type="file"
+                style="display: none"
+                :accept="uploadConfig.accept"
+                :multiple="uploadConfig.multiple"
+                @change="doChange($event)"
+                ref="fileMonolithUpload"
+            >       
+            <div class="container-area">
+                <div class="upload-area">
+                    <div class="header-title">Upload Panel</div>
+                    <div class="drop-area-wrap">
+                        <div class="drop-area" :data-active="active" @dragenter.prevent="setActive" @dragover.prevent="setActive" @dragleave.prevent="setInactive" @drop.prevent="onDrop" @click="openInput">
+                            <span v-if="active">that's nice, drop it now!</span>
+                            <span v-if="!active">To upload: <br/> drag files or click here</span>
+                        </div>
+                        <template v-for="file in files" :key="file.name" ref="upload_items">  
+                                <div class="upload-data">
+                                    <div class="progress-bar-wrapper">
+                                        <fieldset>
+                                            <div class="progress-bar" :style="{width:upload_status[file.name]?.percentage + '%', height:'30px', overflow:'hidden'}"> 
+                                                <legend>
+                                                    <div class="small-name"> <img :src="upload_status[file.name]?.imageData" width="30" height="30"/></div>
+                                                    <span class="small-name"> {{ file.name }} </span>
+                                                    <span class="small-name">{{ upload_status[file.name]?.percentage }}%</span>
+                                                    <span class="small-name">{{ upload_status[file.name]?.status }}</span>
+                                                </legend>
+                                            </div>
+                                        </fieldset>
+                                    </div>                        
+                                </div>
+                        </template>                      
+                    </div>
+                </div>                
+                <div class="info-area">
+                    <div class="header-title">Images</div>
+                    <div class="data-area">
+                        <div class="search-box">
+                            <input class="search-box-input" v-model="search_string" placeholder="search" ref="searcher"/>
+                            <label>Showing: {{ filteredFiles.length }} / {{ files_data.count }}</label>
+                            <div class="pagination">
+                                <button class="normal-button" @click.prevent="loadMore">Load More ( {{ num_show }} )</button>
+                                <div><button :class="['normal-button',(num_show==5)?'selected':'']" @click.prevent="howMany(5)">5</button></div>
+                                <div><button :class="['normal-button',(num_show==20)?'selected':'']" @click.prevent="howMany(20)">20</button></div>
+                                <div><button :class="['normal-button',(num_show==50)?'selected':'']" @click.prevent="howMany(50)">50</button></div>
+                                <div><button :class="['normal-button',(num_show==100)?'selected':'']" @click.prevent="howMany(100)">100</button></div>
+                                <div><button :class="['normal-button',(num_show==200)?'selected':'']" @click.prevent="howMany(200)">200</button></div>
+                            </div>
+
+
+                        </div>
+                        <div class="server-data" ref="serverData" v-if="showData">
+                                <div class="block header">
+                                    <div class="delete-checkbox"><input v-if="filteredFiles.length > 0" type="checkbox" v-model="selectAll" :value="false" /></div>
+                                    <div class="buttons"> <button class="normal-button delete" v-if="selected_images.length>0" @click.prevent="deleteSelected">Delete</button> </div>
+                                </div>                                
+                                <template v-for="(item,index) in filteredFiles" :key="item.id" ref="ref_items">  
+                                    <div class="block">
+                                        <div class="delete-checkbox"><input :ref="checkboxRefs" type="checkbox"  v-model="selected_images" :value="Number(item.id)" /></div>
+                                        <a :href="item.image_url" :class="[item.extension.substring(1).toLowerCase(),imageSelected(Number(item.id))]" target="_blank">
+                                        <div :class="['img',item.extension.substring(1).toLowerCase()]"></div>
+                                        <div class="name">
+                                            <div class="file fs-1-2 bold">{{item.filename}}</div>
+                                            <div class="data upper size fs-0-7"><span class="bold">Size:</span>{{printSize(item.size)}}</div>
+                                            <div class="data upper modified fs-0-7"><span class="bold">Extension:</span>{{item.extension}}</div>
+                                        </div>
+                                        </a>
+                                        <div class="image-preview">
+                                            <img :src="item.image_data?.medium_version?.url" />
+                                            <a href="#" @click.prevent="useImage(item)" class="link-interaction"> Use </a>
+                                        </div>
+                                    </div>
+                                </template>
+                        </div>
+                        <div v-else class="server-data">     
+                            <div class="info-message">Data is being fetched. Please wait...</div>
+                        </div>                            
+                    </div>
+                </div>
+
+            </div>  
+        <button class="close-button" @click="closeModal">X</button>
+      </div>
+    </div>
+
+
+</template>
 <style lang="scss">
 @import '@/styles/var';
 
@@ -294,99 +386,6 @@
 
 
 </style>
-
-<template>
-
-    <div class="modal-overlay" v-if="isOpen" @click.self="closeModal">
-      <div class="modal">
-            <input
-                class="monolith"
-                type="file"
-                style="display: none"
-                :accept="uploadConfig.accept"
-                :multiple="uploadConfig.multiple"
-                @change="doChange($event)"
-                ref="fileMonolithUpload"
-            >       
-            <div class="container-area">
-                <div class="upload-area">
-                    <div class="header-title">Upload Panel</div>
-                    <div class="drop-area-wrap">
-                        <div class="drop-area" :data-active="active" @dragenter.prevent="setActive" @dragover.prevent="setActive" @dragleave.prevent="setInactive" @drop.prevent="onDrop" @click="openInput">
-                            <span v-if="active">that's nice, drop it now!</span>
-                            <span v-if="!active">To upload: <br/> drag files or click here</span>
-                        </div>
-                        <template v-for="file in files" :key="file.name" ref="upload_items">  
-                                <div class="upload-data">
-                                    <div class="progress-bar-wrapper">
-                                        <fieldset>
-                                            <div class="progress-bar" :style="{width:upload_status[file.name]?.percentage + '%', height:'30px', overflow:'hidden'}"> 
-                                                <legend>
-                                                    <div class="small-name"> <img :src="upload_status[file.name]?.imageData" width="30" height="30"/></div>
-                                                    <span class="small-name"> {{ file.name }} </span>
-                                                    <span class="small-name">{{ upload_status[file.name]?.percentage }}%</span>
-                                                    <span class="small-name">{{ upload_status[file.name]?.status }}</span>
-                                                </legend>
-                                            </div>
-                                        </fieldset>
-                                    </div>                        
-                                </div>
-                        </template>                      
-                    </div>
-                </div>                
-                <div class="info-area">
-                    <div class="header-title">Images</div>
-                    <div class="data-area">
-                        <div class="search-box">
-                            <input class="search-box-input" v-model="search_string" placeholder="search" ref="searcher"/>
-                            <label>Showing: {{ filteredFiles.length }} / {{ files_data.count }}</label>
-                            <div class="pagination">
-                                <button class="normal-button" @click.prevent="loadMore">Load More ( {{ num_show }} )</button>
-                                <div><button :class="['normal-button',(num_show==5)?'selected':'']" @click.prevent="howMany(5)">5</button></div>
-                                <div><button :class="['normal-button',(num_show==20)?'selected':'']" @click.prevent="howMany(20)">20</button></div>
-                                <div><button :class="['normal-button',(num_show==50)?'selected':'']" @click.prevent="howMany(50)">50</button></div>
-                                <div><button :class="['normal-button',(num_show==100)?'selected':'']" @click.prevent="howMany(100)">100</button></div>
-                                <div><button :class="['normal-button',(num_show==200)?'selected':'']" @click.prevent="howMany(200)">200</button></div>
-                            </div>
-
-
-                        </div>
-                        <div class="server-data" ref="serverData" v-if="showData">
-                                <div class="block header">
-                                    <div class="delete-checkbox"><input v-if="filteredFiles.length > 0" type="checkbox" v-model="selectAll" :value="false" /></div>
-                                    <div class="buttons"> <button class="normal-button delete" v-if="selected_images.length>0" @click.prevent="deleteSelected">Delete</button> </div>
-                                </div>                                
-                                <template v-for="(item,index) in filteredFiles" :key="item.id" ref="ref_items">  
-                                    <div class="block">
-                                        <div class="delete-checkbox"><input :ref="checkboxRefs" type="checkbox"  v-model="selected_images" :value="Number(item.id)" /></div>
-                                        <a :href="item.image_url" :class="[item.extension.substring(1).toLowerCase(),imageSelected(Number(item.id))]" target="_blank">
-                                        <div :class="['img',item.extension.substring(1).toLowerCase()]"></div>
-                                        <div class="name">
-                                            <div class="file fs-1-2 bold">{{item.filename}}</div>
-                                            <div class="data upper size fs-0-7"><span class="bold">Size:</span>{{printSize(item.size)}}</div>
-                                            <div class="data upper modified fs-0-7"><span class="bold">Extension:</span>{{item.extension}}</div>
-                                        </div>
-                                        </a>
-                                        <div class="image-preview">
-                                            <img :src="item.image_data?.medium_version?.url" />
-                                            <a href="#" @click.prevent="useImage(item)" class="link-interaction"> Use </a>
-                                        </div>
-                                    </div>
-                                </template>
-                        </div>
-                        <div v-else class="server-data">     
-                            <div class="info-message">Data is being fetched. Please wait...</div>
-                        </div>                            
-                    </div>
-                </div>
-
-            </div>  
-        <button class="close-button" @click="closeModal">X</button>
-      </div>
-    </div>
-
-
-</template>
 
 
   
