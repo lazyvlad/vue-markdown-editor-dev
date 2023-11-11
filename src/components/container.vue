@@ -118,6 +118,8 @@ export default {
   },
   emits: ['resize', 'editor-wrapper-click', 'toolbar-item-click', 'toolbar-menu-click'],
   data() {
+
+
     return {
       toolbarHeight: 0,
     };

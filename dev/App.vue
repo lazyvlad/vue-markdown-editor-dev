@@ -4,6 +4,7 @@
       v-model="text"
       height="700px"
       autofocus
+      :default-fullscreen="true"
       :disabled-menus="[]"
       toc-nav-position-right
       :upload-url = "{
@@ -12,12 +13,16 @@
         delete:`${base_url}/files/ajax/delete_images`,
         num_show:100,
         page_show:0
-        }"
+      }"
+      :widget-settings="{
+        url: `${base_url}/widgets/admin/iframe_edit_instance`
+      }"
       @upload-image="handleUploadImage"
       @fullscreen-change="handleFullscreenChange"
       @save="handleSave"
       @copy-code-success="handleCopyCodeSuccess"
       @monolith-use-link="handleMonolithInject"
+      @afk-widget-use-link="handleInsertWidget"
       :monolith-settings="{num_show:100,page_show:0}"
       ref="editor"
     />
@@ -29,16 +34,13 @@
 import text from './text';
 import html from './html';
 
-import {ref, computed} from 'vue';
-
-import axios from 'axios';
 
 export default {
   data() {
 
 
     return {
-      base_url : 'https://dev.afk.mk/barkoder/',
+      base_url : 'https://dev.afk.mk/barkoder',
       text,
       html,
     };
@@ -49,11 +51,20 @@ export default {
       console.log(v);
     },
     handleMonolithInject(insertImage,image){
-        console.log(image);
+
+        let url = (image.image_url)?image.image_url:image.url;
+
         insertImage({
-          url: image.image_url,
+          url: url,
           desc: image.filename,
         });
+    },
+    handleInsertWidget(insertLink,widget){
+
+      console.log(widget);
+      insertLink(widget)
+      
+
     },
     handleUploadImage(e, insertImage, files) {
 

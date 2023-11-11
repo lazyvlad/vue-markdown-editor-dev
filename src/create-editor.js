@@ -10,6 +10,7 @@ import commonMixin from '@/mixins/common';
 import vModelMixin from '@/mixins/v-model';
 
 import monolithUploadMixin from '@/mixins/monolith-upload';
+import afkWidget from '@/mixins/afk-widget';
 import fullscreenMixin from '@/mixins/fullscreen';
 import uploadImageMixin from '@/mixins/upload-image';
 import syncScrollMixin from '@/mixins/sync-scroll';
@@ -50,7 +51,8 @@ export default function createEditor(component) {
   component.mixins = [
     commonMixin,
     vModelMixin,
-    monolithUploadMixin,    
+    monolithUploadMixin,
+    afkWidget,
     toolbarMixin(component),
     commandMixin(component),
     hotkeysMixin(component),

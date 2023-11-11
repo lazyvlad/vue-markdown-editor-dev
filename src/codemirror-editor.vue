@@ -56,11 +56,10 @@
     </template>
 
     <template #lazyvlad>
-      <!-- <div class="easy-class" ref="someShit">Upload Files</div>
-      <v-md-upload-file
-        :upload-config="uploadConfig"
-        ref="uploadFile"
-      /> -->
+      <v-md-afk-widget
+        :widget-settings="widgetSettings"
+        ref="afkWidget"
+      />
       <v-md-monolith-upload
        :upload-config="monolithImageConfig"
        :upload-url="uploadUrl"
@@ -89,6 +88,7 @@ const component = {
     },
     uploadUrl : Object,
     monolithSettings:Object,
+    widgetSettings:Object,
   },
   emits : ['custom-upload-hook','custom-server-refresh-data-hook'],
   watch: {
@@ -113,6 +113,10 @@ const component = {
 
       return console.error(`Missing CodeMirror`);
     }
+    console.log(`code mirror was mounted`);
+    console.log(this.widgetSettings)
+    console.log(this.monolithSettings);
+    console.log(this.uploadUrl);
 
     this.codemirrorInstance = new this.Codemirror(this.$refs.codemirrorEditor, {
       lineNumbers: true,

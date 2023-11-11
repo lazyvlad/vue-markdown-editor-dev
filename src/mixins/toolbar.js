@@ -6,7 +6,7 @@ export default function (Component) {
       leftToolbar: {
         type: String,
         default:
-          'undo redo clear | h bold italic strikethrough subscript quote | ul ol table hr | link image code | save | monolith-upload |',
+          'undo redo clear | h bold italic strikethrough subscript quote | ul ol table hr | link image code | monolith-upload afk-widget | save ',
       },
       rightToolbar: {
         type: String,

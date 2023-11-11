@@ -33,6 +33,8 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/vue/vue';
+
+import 'codemirror/addon/search/searchcursor'
 // edit
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/closetag';
@@ -68,12 +70,12 @@ VueMarkdownEditor.use(vuepressTheme, {
 // Preview.use(githubTheme);
 
 VueMarkdownEditor.use(createEmojiPlugin())
-  .use(createKatexPlugin())
+  // .use(createKatexPlugin())
   .use(createTodoListPlugin())
   .use(createLineNumberPlugin())
   .use(createCopyCodePlugin())
-  .use(createHighLinesPlugin())
-  .use(createMermaidPlugin());
+  .use(createHighLinesPlugin());
+  // .use(createMermaidPlugin());
 
 VueMarkdownEditor.Codemirror = Codemirror;
 

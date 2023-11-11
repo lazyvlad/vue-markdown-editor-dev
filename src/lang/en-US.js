@@ -104,6 +104,9 @@ export default {
   monolithUpload:{
     toolbar : 'Upload via our system'
   },
+  afkWidget:{
+    toolbar : 'Load Widget'
+  },
   fullscreen: {
     enabled: 'Full screen(Press ESC to exit)',
     disabled: 'Exit Full Screen',

@@ -24,12 +24,8 @@ export default {
   methods: {
 
     useImage(item){
-
-
-      console.log('this is happening in use image');
       this.$emit('monolith-use-link',
         (imageConfig) => {
-          console.log(image)
           this.execCommand(image,imageConfig)
         },
         item

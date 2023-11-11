@@ -18,6 +18,7 @@ export const redo = 'redo';
 export const strikethrough = 'strikethrough';
 export const subscript = 'subscript';
 export const monolithUpload = 'monolith-upload';
+export const afkWidget = 'afk-widget';
 export const syncScroll = 'sync-scroll';
 export const table = 'table';
 export const ul = 'ul';
