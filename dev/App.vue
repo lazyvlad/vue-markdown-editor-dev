@@ -7,7 +7,7 @@
       :default-fullscreen="true"
       :disabled-menus="[]"
       toc-nav-position-right
-      :upload-url = "{
+      :upload-settings = "{
         get : `${base_url}/files/ajax/get_images`,
         post:`${base_url}/files/upload/photo?sess=2`,
         delete:`${base_url}/files/ajax/delete_images`,
@@ -23,7 +23,6 @@
       @copy-code-success="handleCopyCodeSuccess"
       @monolith-use-link="handleMonolithInject"
       @afk-widget-use-link="handleInsertWidget"
-      :monolith-settings="{num_show:100,page_show:0}"
       ref="editor"
     />
   </div>
@@ -48,7 +47,7 @@ export default {
   methods: {
 
     handleFullscreenChange(v) {
-      console.log(v);
+      // console.log(v);
     },
     handleMonolithInject(insertImage,image){
 
@@ -60,11 +59,7 @@ export default {
         });
     },
     handleInsertWidget(insertLink,widget){
-
-      console.log(widget);
       insertLink(widget)
-      
-
     },
     handleUploadImage(e, insertImage, files) {
 
@@ -77,7 +72,7 @@ export default {
       });
     },
     handleSave(v, html) {
-      console.log(v, html);
+      console.log(v);
     },
     handleCopyCodeSuccess(code) {
       console.log(code);

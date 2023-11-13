@@ -62,8 +62,7 @@
       />
       <v-md-monolith-upload
        :upload-config="monolithImageConfig"
-       :upload-url="uploadUrl"
-       :settings="monolithSettings"
+       :upload-settings="uploadSettings"
        @files-dropped="handleFilesDropped"
        @refresh-server-data="handleRefreshServerData"
        ref="monolithUpload"      
@@ -86,8 +85,7 @@ const component = {
       type: Boolean,
       default: true,
     },
-    uploadUrl : Object,
-    monolithSettings:Object,
+    uploadSettings : Object,
     widgetSettings:Object,
   },
   emits : ['custom-upload-hook','custom-server-refresh-data-hook'],
@@ -110,13 +108,8 @@ const component = {
   mounted() {
 
     if (!this.Codemirror) {
-
       return console.error(`Missing CodeMirror`);
     }
-    console.log(`code mirror was mounted`);
-    console.log(this.widgetSettings)
-    console.log(this.monolithSettings);
-    console.log(this.uploadUrl);
 
     this.codemirrorInstance = new this.Codemirror(this.$refs.codemirrorEditor, {
       lineNumbers: true,

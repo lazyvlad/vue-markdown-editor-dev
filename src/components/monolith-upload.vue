@@ -114,8 +114,7 @@
     inject : ['markdownEditor'],
     props: {
       uploadConfig: Object,
-      uploadUrl:Object,
-      settings:Object,
+      uploadSettings:Object,
     },
     data() {
 
@@ -126,8 +125,8 @@
       let upload_status = ref({});
 
 
-      let num_show = ref(Number(this.settings?.num_show??0))
-      let page_show = ref(Number(this.settings?.page_show??0))
+      let num_show = ref(Number(this.uploadSettings?.num_show??0))
+      let page_show = ref(Number(this.uploadSettings?.page_show??0))
 
       return {
         media : [],
@@ -216,7 +215,7 @@
 
             console.log(payload)
 
-              let response = await axios.get(this.uploadUrl.get,payload);
+              let response = await axios.get(this.uploadSettings.get,payload);
               if (response.status == 200 && response.statusText == "OK") {
 
 
@@ -241,7 +240,7 @@
 
             let deleted = new Promise((resolve, reject) => {
 
-                resolve(axios.post(this.uploadUrl.delete, {
+                resolve(axios.post(this.uploadSettings.delete, {
                     images:this.selected_images
                 },{
                     headers: {
@@ -289,7 +288,7 @@
                   }
               }
 
-            let response = await axios.get(this.uploadUrl.get,payload);
+            let response = await axios.get(this.uploadSettings.get,payload);
             if(response.status == 200 && response.statusText == "OK"){
 
                 this.files_data = response?.data
@@ -381,7 +380,7 @@
             reader.readAsDataURL(file)            
 
             // set up the request data
-            let response = await axios.post(this.uploadUrl.post, {
+            let response = await axios.post(this.uploadSettings.post, {
                 webp_size_w: '900', 
                 webp_size_h: '900', 
                 files:file
@@ -403,10 +402,11 @@
 
             let data = response?.data.map((item) => {
 
-                item.image_versions.forEach((version) => {
-                    item[`${version.name}_url`] = version.url
-                })
-
+                if(item?.image_versions && Array.isArray(item?.image_versions)){
+                    item.image_versions.forEach((version) => {
+                        item[`${version.name}_url`] = version.url
+                    })
+                }
                 return item;
             });
 
