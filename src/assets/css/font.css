@@ -37,6 +37,10 @@
   content: '\e614';
 }
 
+.v-md-icon-html::before{
+  content: '\f71b';
+}
+
 .v-md-icon-refresh-left::before {
   content: '\e615';
 }

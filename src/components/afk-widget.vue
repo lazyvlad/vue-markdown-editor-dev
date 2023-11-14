@@ -50,7 +50,7 @@
     mounted(){     
 
 
-		window.addEventListener("message", this.iframeEvent, false);        
+		    window.addEventListener("message", this.iframeEvent, false);        
     },
     unmounted(){
 
